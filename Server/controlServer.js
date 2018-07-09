@@ -20,6 +20,10 @@ function write(err) {
     });
 }
 
+gpio.on('change', function(channel, value) {
+    console.log('Channel ' + channel + ' value is now ' + value);
+});
+gpio.setup(11, gpio.DIR_IN, gpio.EDGE_BOTH);
 
 
 // Sockets
@@ -28,8 +32,8 @@ io.on('connection', function(socket){
 	socket.on('ready', function(){
 		socket.emit('button1');
 		console.log("Sending");
-		/*isEmiting = (!isEmiting) ? true : false;
-		gpiop.write(4, isEmiting);*/
+		isEmiting = (!isEmiting) ? true : false;
+		gpio.write(7, isEmiting);
 	});
 
 })
