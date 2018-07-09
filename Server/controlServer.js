@@ -6,10 +6,21 @@ var io = require('socket.io')({
 
 // Setting
 io.attach(4567);
-gpio.setup(4, gpio.DIR_OUT, write);
 var isEmiting = true;
+gpio.setup(7, gpio.DIR_OUT, write);
 
 console.log("Start Server");
+
+// GPIO
+function write(err) {
+    if (err) throw err;
+    gpio.write(7, true, function(err) {
+        if (err) throw err;
+        console.log('Written to pin');
+    });
+}
+
+
 
 // Sockets
 io.on('connection', function(socket){
@@ -22,11 +33,3 @@ io.on('connection', function(socket){
 	});
 
 })
-
-function write(err) {
-    if (err) throw err;
-    gpio.write(4, true, function(err) {
-        if (err) throw err;
-        console.log('Written to pin');
-    });
-}
