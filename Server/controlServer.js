@@ -9,13 +9,16 @@ io.attach(4567);
 gpio.setup(4, gpio.DIR_OUT, write);
 var isEmiting = true;
 
+console.log("Start Server");
+
 // Sockets
 io.on('connection', function(socket){
 
 	socket.on('ready', function(){
 		socket.emit('button1');
-		isEmiting = (!isEmiting) ? true : false;
-		gpiop.write(4, isEmiting);
+		console.log("Sending");
+		/*isEmiting = (!isEmiting) ? true : false;
+		gpiop.write(4, isEmiting);*/
 	});
 
 })
